@@ -45,3 +45,12 @@ $env:TARGET_URL="https://deployment-url.com"; npx playwright test tests/my-new-t
 *   Use `walkthrough.md` to report results.
 *   Include the generated screenshots (saved automatically on failure/request).
 *   Propose fixes if defects are found.
+
+## 6. Advanced Debugging & Solutions (CRITICAL)
+If standard tests fail or you encounter complex logic issues:
+1.  **Be Creative**: Don't be afraid to write custom Node.js scripts (e.g., `debug-parse.js`) to simulate core logic locally. Isolate the problem from the full app stack.
+2.  **Verify Locally**: Use these scripts to prove your fix works on your machine.
+3.  **Deploy First**: Once fixed locally, **IMMEDIATELY PUSH** to the repo to trigger a deployment.
+4.  **Verify in Production**:
+    *   **GOLDEN RULE**: Tests must pass against the **Deployed URL** (`$env:TARGET_URL`), not just localhost.
+    *   If a test passes locally but fails in production, assume **Production is Truth**. Investigate deployment sync issues or environment differences.

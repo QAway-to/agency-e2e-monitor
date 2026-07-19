@@ -17,11 +17,13 @@ test('Verify Fix: Scrape Round 9 (Should succeed via local fix)', async ({ page 
     await seasonSelect.waitFor({ timeout: 5000 });
     await seasonSelect.selectOption({ label: '2024' }).catch(() => seasonSelect.selectOption({ value: '2024' }));
 
-    // 3. Select Round 9
-    console.log('[STEP] Selecting Round 9...');
+    // 3. Select Round 12
     const roundSelect = page.getByLabel('Round', { exact: false }).or(page.locator('select').nth(1));
     await roundSelect.waitFor();
-    await roundSelect.selectOption({ label: 'Round 9' }).catch(() => roundSelect.selectOption({ value: '9' }));
+    const targetRound = "Round 12"; // User requested checking this round specifically
+    console.log(`[STEP] Selecting ${targetRound}...`);
+    // Try label first, fallback to value (in case UI differs)
+    await roundSelect.selectOption({ label: targetRound }).catch(() => roundSelect.selectOption({ value: '12' }));
 
     // 4. Click Start Scraping
     console.log('[STEP] Clicking Start Scraping...');
